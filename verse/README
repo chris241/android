@@ -1,0 +1,26 @@
+# Guide d'installation sur windows
+# Pour linux ajouter sudo sur npm -g et inverser le sens des \ pour prism
+
+# Installation de ionic / cordova / prismjs
+npm -g i @ionic/cli cordova @stoplight/prism-cli
+
+# Installation
+npm install
+
+# Mettre à jour api-cryptos
+Copier le nouveau tgz dans le repertoire local
+Et ensuite :
+npm install @trixprod/api-verse-real-estate
+
+Utilisation de l'application en mode mocks :
+
+## Dans un terminal
+prism --port 4011 --host 127.0.0.1 mock src\api\api-auth.yml
+
+## Dans un autre terminal
+prism --port 4010 --host 192.168.1.92 mock src\api\api-verse-real-estate-0.0.1.yml
+
+# Lancement de l'app dans un autre terminal
+ionic serve
+
+## Pour le login, choisir n'importe quel login / mdp

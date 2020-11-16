@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-thumbnail id="logo-thumb" class="logo" slot="start" (click)="retour()">
+            <img src="assets/img/vre-3.png">
+        </ion-thumbnail>
+        <ion-title>
+            <!--    {{ 'WELCOME_TITLE' | translate }}, {{account?.firstName}}-->
+            ALERTES
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button id="notifications" (click)="goBack()">
+                <ion-icon slot="end" size="large" name="notifications">
+                </ion-icon>
+                <ion-badge *ngIf="alertes" color="danger" id="notif-badge">{{alertes.length}}</ion-badge>
+            </ion-button>
+            <ion-button id="logout">
+                <ion-icon slot="end" name="menu"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="alertes">
+        <ion-card *ngFor="let alert of alertes" class="alert-card" [color]='getIconColor(alert)'>
+            <ion-card-header>
+                <span>{{alert.title}}</span>
+
+            </ion-card-header>
+            <ion-card-content>
+
+                <ion-label>
+                    <p *ngIf="contracts[alert.idContract]">
+                        {{contracts[alert.idContract].tenant.firstName |titlecase}} {{contracts[alert.idContract].tenant.lastName|uppercase}} - {{contracts[alert.idContract].price}} € <br> Du {{contracts[alert.idContract].dateFrom}} à {{contracts[alert.idContract].dateFrom}}
+                    </p>
+                    <p *ngIf="!contracts[alert.idContract]">
+                        <span class="erreur">(erreur getContract(id:{{alert.idContract}})) </span><br> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci obcaecati sequi dignissimos.
+                    </p>
+
+                </ion-label>
+
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+    <div *ngIf="!alertes">
+        <p>Chargement...</p>
+    </div>
+</ion-content>

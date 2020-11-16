@@ -1,0 +1,64 @@
+pipeline {
+
+  // See https://ionicframework.com/docs/v1/guide/publishing.html
+
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+  }
+
+   agent any
+      environment {
+         PATH = "${tool 'NodeJS13'}/bin:${env.PATH}"
+      }
+   stages {
+      stage('NPM Setup') {
+      steps {
+         sh 'npm install'
+      }
+   }
+
+//   stage('IOS Build') {
+//   steps {
+//      sh 'ionic cordova build ios --release'
+//     }
+//  }
+
+   stage('Android Build') {
+   steps {
+      sh 'ionic cordova build android --release'
+   }
+  }
+
+   stage('APK Sign') {
+   steps {
+      sh 'jarsigner -storepass 4ndr01dtr1pr0d -keystore /var/jenkins_home/android/key.keystore platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk trixprod'
+      sh '/var/jenkins_home/android/build-tools/29.0.3/zipalign -f -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk platforms/android/app/build/outputs/apk/release/app-release.apk'
+    }
+   }
+
+   stage('Stage Web Build') {
+      steps {
+        sh 'npm run build --prod'
+    }
+  }
+
+//   stage('Publish Firebase Web') {
+//      steps {
+//      sh 'firebase deploy --token "Your Token Key"'
+//   }
+//  }
+
+//   stage('Publish iOS') {
+//      steps {
+//       echo "Publish iOS Action"
+//    }
+//   }
+
+   stage('Publish Android') {
+     steps {
+      echo "Publish Android API Action"
+      archiveArtifacts artifacts: "platforms/android/app/build/outputs/apk/release/app-release.apk"
+   }
+  }
+ }
+}

@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-thumbnail id="logo-thumb" class="logo" slot="start"(click)="retour()">
+            <img src="assets/img/vre.png">
+        </ion-thumbnail>
+        <ion-title>
+            <!--    {{ 'WELCOME_TITLE' | translate }}, {{account?.firstName}}-->
+            MES APPARTEMENTS
+        </ion-title>
+        <ion-buttons slot="end">
+            <a routerLink="/tabs/alertes">
+                <ion-button id="notifications">
+                    <ion-icon size="large" slot="end" name="notifications" >
+                    </ion-icon>
+                    <ion-badge id="notif-badge" *ngIf="alertes" color="danger">{{alertes.length}}</ion-badge>
+                </ion-button>
+            </a>
+            <ion-button (click)="logout()" id="logout">
+                <!--   {{ 'LOGOUT_TITLE' | translate }}-->
+                <ion-icon slot="end" name="menu"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <div *ngIf="rentals">
+        <div *ngFor="let rental of rentals">
+                <div routerLink="/tabs/appartement/{{rental.id}}">
+        <ion-card  color="primary">
+            <img class="simple-image" src="data:image/png;base64,{{rental.photos[0]}}">
+            <ion-card-header>
+                <ion-card-title>{{rental.title}}</ion-card-title>
+                <ion-card-subtitle>{{rental.subtitle}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+    </div>
+    </div>
+    </div>
+ 
+</ion-content>

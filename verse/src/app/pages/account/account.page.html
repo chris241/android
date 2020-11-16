@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            {{ 'TAB3_TITLE' | translate }}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="alertes">
+        <h1>hello {{alertes.length}}</h1>
+        <ul>
+            <li *ngFor="let alert of alertes"><span style="color: blue;">{{alert.id}}</span> {{alert.severity}} {{alert.title}} </li>
+        </ul>
+    </div>
+    <div *ngIf="!alertes">
+        <p>Chargement...</p>
+    </div>
+
+    <div *ngIf="rentals">
+        <ul>
+            <li *ngFor="let rental of rentals"><span style="color: blue;">{{rental.id}}</span> {{rental.title}} {{rental.subtitle}} <img class="simple-image" src="data:image/png;base64,{{rental.photos[0]}}"> </li>
+        </ul>
+
+    </div>
+</ion-content>

@@ -1,0 +1,24 @@
+$color:white;
+.label{
+    text-decoration:underline;
+    position: relative;
+    margin-top: 25px;
+    margin-left: 130px;
+}
+.contrat-card{
+    background-color: rgb(16, 231, 247);
+}
+.last-first{
+    color:$color;
+    font-size: 15px;
+    font-weight: bold;
+}
+.price{
+    color:$color; 
+}
+.from{
+    color:$color;   
+}
+.to{
+    color:$color;  
+}

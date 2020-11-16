@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-thumbnail id="logo-thumb" class="logo" slot="start" (click)="retour()">
+            <img src="assets/img/vre.png">
+        </ion-thumbnail>
+        <ion-title *ngIf="contact">
+            <!--    {{ 'WELCOME_TITLE' | translate }}, {{account?.firstName}}-->
+            LOCATION {{contact.lastName}} {{contact.firstName}} 
+        </ion-title>
+        <ion-buttons slot="end">
+            <a routerLink="/tabs/alertes">
+                <ion-button id="notifications">
+                    <ion-icon size="large" slot="end" name="notifications">
+                    </ion-icon>
+                    <ion-badge id="notif-badge" *ngIf="alertes" color="danger">{{alertes.length}}</ion-badge>
+                </ion-button>
+            </a>
+            <ion-button (click)="logout()" id="logout">
+                <!--   {{ 'LOGOUT_TITLE' | translate }}-->
+                <ion-icon slot="end" name="menu"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+     <ion-grid>
+        <ion-row>
+            <ion-col size="12">
+                <div *ngIf="contrat">
+                    <h3>
+                            {{contact.firstName | uppercase}} {{contact.lastName | uppercase}}
+                    </h3>
+                    <p>
+                        <span class="alert">Alert:</span><br>
+                        <span>{{nbr}} alertes liées à cette location</span>
+                    </p>
+                    <p>
+                        Cliquez <a routerLink="/tabs/alertes"> ici</a> pour réctifier les anomalies(nous
+                        redirige vers les alertes avec un filtre).
+                    </p>
+                    <div class="infos">
+                        <ion-label>
+                            <p>
+                                Du {{contrat.dateFrom}} au {{contrat.dateTo}} ( 3 mois maximum )
+                            </p>
+                            <p>
+                                <a routerLink="/tabs/operations"> Voir liste opération</a> ( nous redirige vers les opérations filtrées sur ce locataire )
+                            </p>
+                            <p>
+                                Voir fiche contact ( nous redirige vers l'écran des contacts filtré sur ce locataire )
+                            </p>
+                            <p>
+                                Contrat: Cliquez <a routerLink="/tabs/contacts">ici</a>
+                            </p>
+                            <p>
+                                Type contrat: Initial / Renouvellé ( si renouvellé on a pas d'états des lieux d'entrée )
+                            </p>
+                            <p>
+                                Quittance: Clicquez ici
+                            </p>
+
+                            <p>
+                                Etats des lieux d'entrée: Cliquez ici
+                            </p>
+                            <p>
+                                Etats des lieux de sortie: Cliquez ici
+                            </p>
+                            <p>
+                                Photos états des lieux de sortie ( si nécessaire ): Cliquez ici
+                            </p>
+                        </ion-label>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid> 
+</ion-content>

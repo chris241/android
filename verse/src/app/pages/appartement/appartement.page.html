@@ -1,0 +1,96 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-thumbnail id="logo-thumb" class="logo" slot="start" (click)="retour()">
+            <img src="assets/img/vre.png">
+        </ion-thumbnail>
+        <ion-title>
+            <!--    {{ 'WELCOME_TITLE' | translate }}, {{account?.firstName}}-->
+            MON APPARTEMENT
+        </ion-title>
+        <ion-buttons slot="end">
+            <a routerLink="/tabs/alertes">
+                <ion-button id="notifications">
+                    <ion-icon size="large" slot="end" name="notifications">
+
+                    </ion-icon>
+                    <ion-badge id="notif-badge" *ngIf="alertes" color="danger">{{alertes.length}}</ion-badge>
+                </ion-button>
+            </a>
+            <ion-button (click)="logout()" id="logout">
+                <!--   {{ 'LOGOUT_TITLE' | translate }}-->
+                <ion-icon slot="end" name="menu"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="!rental">
+        <p>Chargement...</p>
+    </div>
+        <ion-card color="primary" *ngIf="rental">
+            <img class="simple-image" src="data:image/png;base64,{{rental.photos[0]}}">
+            <ion-card-header>
+                <ion-card-title>{{rental.title}}</ion-card-title>
+                <ion-card-subtitle>{{rental.subtitle}}</ion-card-subtitle>
+            </ion-card-header>
+        </ion-card>
+
+        <ion-label class="label" *ngIf="rental">Contrats:</ion-label>
+        <ion-card *ngFor="let contrat of contrats" class="contrat-card">
+                <div routerLink="/tabs/location/{{contrat.id}}">
+            <ion-card-header *ngIf="contrat">
+                <span class="last-first" *ngIf="contrat.tenant">
+                    {{contrat.tenant.firstName}} {{contrat.tenant.lastName}}
+                </span>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-label>
+                    <p class="price">
+                        {{contrat.price}}€
+                    </p>
+                    <p class="from">
+                        Entrée, le {{contrat.dateFrom}}
+                    </p>
+                    <p class="to">
+                        Sortie, le {{contrat.dateTo}}
+                    </p>
+                </ion-label>
+            </ion-card-content>
+                </div>
+        </ion-card>
+        <ion-label class="label" *ngIf="rental"> Opérations:</ion-label>
+        <ion-card *ngFor="let op of operations" class="alert-card">
+            <ion-card-header *ngIf="op">
+                <span>{{op.type}}</span>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-label>
+                    <p>
+                        {{op.amount}}€
+                    </p>
+                    <p>
+                        {{op.description}}
+                    </p>
+                </ion-label>
+            </ion-card-content>
+        </ion-card>
+        <ion-label class="label" *ngIf="rental">Réservation:</ion-label>
+        <ion-card *ngFor="let res of reservations" class="alert-card">
+            <ion-card-header *ngIf="res">
+                <span>{{res.price}}€</span>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-label>
+                    <p>
+                        Entrée, le {{res.dateFrom}}
+                    </p>
+                    <p>
+                        Sortie, le {{res.dateTo}}
+                    </p>
+                </ion-label>
+            </ion-card-content>
+
+        </ion-card>
+
+</ion-content>

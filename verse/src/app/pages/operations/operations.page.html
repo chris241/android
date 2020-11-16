@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-thumbnail id="logo-thumb" class="logo" slot="start" (click)="retour()">
+            <img src="assets/img/vre.png">
+        </ion-thumbnail>
+        <ion-title>
+            <!--    {{ 'WELCOME_TITLE' | translate }}, {{account?.firstName}}-->
+            OPERATIONS
+        </ion-title>
+        <ion-buttons slot="end">
+            <a routerLink="/tabs/alertes">
+                <ion-button id="notifications">
+                    <ion-icon size="large" slot="end" name="notifications">
+
+                    </ion-icon>
+                    <ion-badge id="notif-badge" *ngIf="alertes" color="danger">{{alertes.length}}</ion-badge>
+                </ion-button>
+            </a>
+            <ion-button (click)="logout()" id="logout">
+                <!--   {{ 'LOGOUT_TITLE' | translate }}-->
+                <ion-icon slot="end" name="menu"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="6">
+                <div>
+                    <ion-card *ngFor="let opera of walletOperations" class="alert-card">
+                        <ion-card-header>
+                            <span>{{opera.type}} :</span>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <ion-label>
+                                <p>
+                                    {{opera.description}}
+                                </p>
+                                <p>
+                                    {{opera.amount}} €
+                                </p>
+                            </ion-label>
+                        </ion-card-content>
+                    </ion-card>
+                </div>
+            </ion-col>
+                <ion-col size="6">
+                    <div>
+                        <ion-card *ngFor="let opera of operations" class="alert-card">
+                            <ion-card-header>
+                                <span>{{opera.type}} :</span>
+                            </ion-card-header>
+                            <ion-card-content>
+                                <ion-label>
+                                    <p>
+                                        {{opera.description}}
+                                    </p>
+                                    <p>
+                                        {{opera.amount}} €
+                                    </p>
+                                </ion-label>
+                            </ion-card-content>
+                        </ion-card>
+                    </div>
+                </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
